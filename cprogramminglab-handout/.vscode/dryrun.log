@@ -1,0 +1,11 @@
+make --dry-run --keep-going --print-directory
+make: Entering directory '/home/bear/csapp/0/mycsapp/cprogramminglab-handout'
+ 
+gcc  -O0 -g -Wall -Werror -o qtest qtest.c report.c console.c harness.c queue.o
+ 
+tar cf handin.tar queue.c queue.h
+ 
+tar -cf handin.tar queue.c queue.h
+ 
+make: Leaving directory '/home/bear/csapp/0/mycsapp/cprogramminglab-handout'
+ 

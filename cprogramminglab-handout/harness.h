@@ -1,3 +1,5 @@
+#ifndef __HARNESS_H__
+#define __HARNESS_H__
 #include <stdbool.h>
 #include <stdarg.h>
 #include <setjmp.h>
@@ -50,4 +52,6 @@ void trigger_exception(char *msg);
 /* Tested program use our versions of malloc and free */
 #define malloc test_malloc
 #define free test_free
+#endif
+
 #endif

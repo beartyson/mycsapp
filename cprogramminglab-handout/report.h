@@ -1,3 +1,6 @@
+#ifndef __REPORT_H__
+#define __REPORT_H__
+
 #include <stdbool.h>
 #include <stdarg.h>
 
@@ -108,3 +111,5 @@ void change_timeout(int oldval);
 
 /* Handler for SIGTERM signals */
 void sigterm_handler(int sig);
+
+#endif

@@ -8,14 +8,13 @@
 
 /* Our program needs to use regular malloc/free */
 #define INTERNAL 1
-#include "harness.h"
+
 
 /*
   It is a bit sketchy to use this #include file on the solution version of the code.
   OK as long as head field of queue_t structure is in first position in solution code
 */
 #include "queue.h"
-
 #include "report.h"
 #include "console.h"
 

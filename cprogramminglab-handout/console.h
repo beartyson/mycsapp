@@ -1,5 +1,6 @@
 /* Implementation of simple command-line interface */
-
+#ifndef __CONSOLE_H__
+#define __CONSOLE_H__
 /* Each command defined in terms of a function */
 typedef bool (*cmd_function)(int argc, char *argv[]);
 
@@ -97,3 +98,4 @@ int cmd_select(int nfds, fd_set *readfds, fd_set *writefds, fd_set *exceptfds,
 /* Run command loop.  Non-null infile_name implies read commands from that file */
 bool run_console(char *infile_name);
 
+#endif

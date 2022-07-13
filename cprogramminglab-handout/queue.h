@@ -1,3 +1,5 @@
+#ifndef __QUEUE_H__
+#define __QUEUE_H__
 /* 
  * Code for basic C skills diagnostic.
  * Developed for courses 15-213/18-213/15-513 by R. E. Bryant, 2017
@@ -11,6 +13,7 @@
  */
 
 #include <stdbool.h>
+#include "harness.h"
 
 /************** Data structure declarations ****************/
 
@@ -23,10 +26,13 @@ typedef struct ELE {
 /* Queue structure */
 typedef struct {
     list_ele_t *head;  /* Linked list of elements */
+    
     /*
       You will need to add more fields to this structure
       to efficiently implement q_size and q_insert_tail
     */
+    list_ele_t *tail;
+    int total;
 } queue_t;
 
 /************** Operations on queue ************************/
@@ -77,3 +83,5 @@ int q_size(queue_t *q);
   No effect if q is NULL or empty
  */
 void q_reverse(queue_t *q);
+
+#endif
