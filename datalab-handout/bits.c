@@ -143,7 +143,8 @@ NOTES:
  *   Rating: 1
  */
 int bitXor(int x, int y) {
-  return 2;
+
+  return ~(~x&~y)&~(x&y);
 }
 /* 
  * tmin - return minimum two's complement integer 
@@ -153,7 +154,8 @@ int bitXor(int x, int y) {
  */
 int tmin(void) {
 
-  return 2;
+
+  return 0x1<<31;
 
 }
 //2
@@ -165,7 +167,17 @@ int tmin(void) {
  *   Rating: 1
  */
 int isTmax(int x) {
-  return 2;
+  int t = x+1;
+  x = t+x;
+  x = ~x;
+  t = !t;
+  x = x+t;
+  /**
+   * @brief 
+   * 0xffffffff
+   * 
+   */
+  return !x;
 }
 /* 
  * allOddBits - return 1 if all odd-numbered bits in word set to 1
@@ -176,7 +188,10 @@ int isTmax(int x) {
  *   Rating: 2
  */
 int allOddBits(int x) {
-  return 2;
+  int mask = 0xAA+(0xAA<<8);
+  mask=mask+(mask<<16);
+  return !((mask^x)&mask);
+  
 }
 /* 
  * negate - return -x 
@@ -186,7 +201,10 @@ int allOddBits(int x) {
  *   Rating: 2
  */
 int negate(int x) {
-  return 2;
+
+  x = ~x + 1;
+
+  return x;
 }
 //3
 /* 
@@ -199,7 +217,21 @@ int negate(int x) {
  *   Rating: 3
  */
 int isAsciiDigit(int x) {
-  return 2;
+  /**
+   * @brief 
+   * 通过位级运算计算 x 是否在 0x30 - 0x39 范围内就是这个题的解决方案。
+   * 那如何用位级运算来操作呢？我们可以使用两个数，一个数是加上比0x39大的数后符号由正变负，另一个数是加上比0x30小的值时是负数。
+   * 这两个数是代码中初始化的 upperBound 和 lowerBound，
+   * 然后加法之后获取其符号位判断即可。
+   * 
+   * 
+   */
+  int sign = 1<<31;
+  int upperbound = ~(sign|0x39);
+  int lowerbound = ~0x30;
+  upperbound = (x+upperbound)>>31;
+  lowerbound = (x+lowerbound+1)>>31; 
+  return !(upperbound || lowerbound);
 }
 /* 
  * conditional - same as x ? y : z 
@@ -209,7 +241,15 @@ int isAsciiDigit(int x) {
  *   Rating: 3
  */
 int conditional(int x, int y, int z) {
-  return 2;
+  /**
+   * @brief 
+   * bool b_show = true;
+      int state = b_show ? 0 : 1;
+      // state = 0;
+   */
+  x = !!x;
+  x = ~x+1;
+  return (x&y)|((~x)&z);
 }
 /* 
  * isLessOrEqual - if x <= y  then return 1, else return 0 
@@ -219,7 +259,17 @@ int conditional(int x, int y, int z) {
  *   Rating: 3
  */
 int isLessOrEqual(int x, int y) {
-  return 2;
+  int negX=~x+1;//-x
+  int addX=negX+y;//y-x
+  int checkSign = addX>>31&1; //y-x的符号
+  int leftBit = 1<<31;//最大位为1的32位有符号数
+  int xLeft = x&leftBit;//x的符号
+  int yLeft = y&leftBit;//y的符号
+  int bitXor = xLeft ^ yLeft;//x和y符号相同标志位，相同为0不同为1
+  bitXor = (bitXor>>31)&1;//符号相同标志位格式化为0或1
+  return ((!bitXor)&(!checkSign))|(bitXor&(xLeft>>31));
+  // 返回1有两种情况：符号相同标志位为0（相同）位与 y-x 的符号为0（y-x>=0）结果为1；
+  // 符号相同标志位为1（不同）位与x的符号位为1（x<0）
 }
 //4
 /* 
@@ -230,8 +280,12 @@ int isLessOrEqual(int x, int y) {
  *   Max ops: 12
  *   Rating: 4 
  */
+/**
+ * 利用其补码（取反加一）的性质，除了0和最小数（符号位为1，其余为0），外其他数都是互为相反数关系（符号位取位或为1）
+ * 0和最小数的补码是本身，不过0的符号位与其补码符号位位或为0，最小数的为1。利用这一点得到解决方法。
+ */
 int logicalNeg(int x) {
-  return 2;
+  return ((x|(~x+1))>>31)+1;
 }
 /* howManyBits - return the minimum number of bits required to represent x in
  *             two's complement
@@ -246,7 +300,24 @@ int logicalNeg(int x) {
  *  Rating: 4
  */
 int howManyBits(int x) {
-  return 0;
+  int b16,b8,b4,b2,b1,b0;
+  int sign=x>>31;
+  x = (sign&~x)|(~sign&x);//如果x为正则不变，否则按位取反（这样好找最高位为1的，原来是最高位为0的，这样也将符号位去掉了）
+
+
+// 不断缩小范围
+  b16 = !!(x>>16)<<4;//高十六位是否有1
+  x = x>>b16;//如果有（至少需要16位），则将原数右移16位
+  b8 = !!(x>>8)<<3;//剩余位高8位是否有1
+  x = x>>b8;//如果有（至少需要16+8=24位），则右移8位
+  b4 = !!(x>>4)<<2;//同理
+  x = x>>b4;
+  b2 = !!(x>>2)<<1;
+  x = x>>b2;
+  b1 = !!(x>>1);
+  x = x>>b1;
+  b0 = x;
+  return b16+b8+b4+b2+b1+b0+1;//+1表示加上符号位
 }
 //float
 /* 
@@ -261,8 +332,18 @@ int howManyBits(int x) {
  *   Rating: 4
  */
 unsigned floatScale2(unsigned uf) {
-  return 2;
+  int exp = (uf&0x7f800000)>>23;
+  int sign = uf&(1<<31);
+  if(exp == 255) return uf;
+  if(exp == 0) return (uf<<1)|sign;
+  exp += 1;
+  if(exp == 255) return 0x7f800000|sign;
+  return (exp<<23)|(uf&0x807fffff);
 }
+/**
+ * @brief 
+ * how to represent inf, and exp == 0;
+ */
 /* 
  * floatFloat2Int - Return bit-level equivalent of expression (int) f
  *   for floating point argument f.
@@ -275,8 +356,35 @@ unsigned floatScale2(unsigned uf) {
  *   Max ops: 30
  *   Rating: 4
  */
+
+// 首先考虑特殊情况：
+// 如果原浮点值为0则返回0；如果真实指数大于31（frac部分是大于等于1的，1<<31位会覆盖符号位），
+// 返回规定的溢出值0x80000000u；如果 [公式] 
+// （1右移x位,x>0，结果为0）则返回0。剩下的情况：首先把小数部分（23位）转化为整数（和23比较），然后判断是否溢出：如果和原符号相同则直接返回，
+// 否则如果结果为负（原来为正）则溢出返回越界指定值0x80000000u，否则原来为负，结果为正，则需要返回其补码（相反数）。
+
+
+
+// C语言的浮点数强转为整数怎么转的？
+
+// 利用位级表示进行强转！
 int floatFloat2Int(unsigned uf) {
-  return 2;
+  unsigned frc = (uf & 0x007fffff)|0x00800000; //frc = 1.f << 23
+int exp = ((uf & 0x7f800000) >> 23)-127;
+unsigned sgn = uf >> 31;
+if(!(uf&0x7fffffff)) return 0;
+if(exp<0) //the floating is less than 1 => 0(int) (underflow)
+return 0;
+if(exp>=31) //overflow
+return 0x80000000u;
+if(exp<=23)
+frc>>=(23-exp);  // from frac we get integer part. origianl frac part is 23 bit, we see can exp really take it to 23 bit long integer
+else
+frc<<=(exp-23);
+if(!sgn)
+return frc;
+else
+return ~frc+1;
 }
 /* 
  * floatPower2 - Return bit-level equivalent of the expression 2.0^x
@@ -292,5 +400,15 @@ int floatFloat2Int(unsigned uf) {
  *   Rating: 4
  */
 unsigned floatPower2(int x) {
-    return 2;
+  int INF = 0xff<<23;
+  int exp = x + 127;
+  if(exp <= 0) return 0;
+  if(exp >= 255) return INF;
+  return exp << 23;
 }
+
+// 这个比较简单，首先得到偏移之后的指数值e，如果e小于等于0
+// （为0时，结果为0，因为2.0的浮点表示frac部分为0），
+// 对应的如果e大于等于255则为无穷大或越界了。
+// 否则返回正常浮点值，frac为0，直接对应指数即可。
+//originally it's 1.0*2ex
