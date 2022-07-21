@@ -1,41 +1,77 @@
 make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 # GNU Make 4.3
+ 
 # Built for x86_64-pc-linux-gnu
+ 
 # Copyright (C) 1988-2020 Free Software Foundation, Inc.
+ 
 # License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>
+ 
 # This is free software: you are free to change and redistribute it.
+ 
 # There is NO WARRANTY, to the extent permitted by law.
+ 
 
-# Make data base, printed on Wed Jul 20 20:00:37 2022
+ 
+# Make data base, printed on Thu Jul 21 14:31:30 2022
+ 
 
 # Variables
+ 
 
+ 
 # environment
+ 
 GDK_BACKEND = x11
+ 
 # environment
+ 
 LC_ALL = C
+ 
 # environment
+ 
 SSH_AGENT_LAUNCHER = openssh
+ 
 # environment
+ 
 VSCODE_CWD = /home/bear/csapp/0/mycsapp/cachelab-handout
+ 
 # environment
+ 
 GDM_LANG = en_US.UTF-8
+ 
 # default
+ 
 MAKE_COMMAND := make
+ 
 # environment
+ 
 QT_ACCESSIBILITY = 1
+ 
 # automatic
+ 
 @D = $(patsubst %/,%,$(dir $@))
+ 
 # environment
+ 
 VSCODE_HANDLES_UNCAUGHT_ERRORS = true
+ 
 # default
+ 
 .VARIABLES := 
+ 
 # environment
+ 
 PWD = /home/bear/csapp/0/mycsapp/cachelab-handout
+ 
 # automatic
+ 
 %D = $(patsubst %/,%,$(dir $%))
+ 
 # automatic
+ 
 ^D = $(patsubst %/,%,$(dir $^))
+ 
 # automatic
 %F = $(notdir $%)
 # environment
@@ -43,17 +79,17 @@ VSCODE_CODE_CACHE_PATH = /home/bear/.config/Code/CachedData/b06ae3b2d2dbfe28bca3
 # environment
 LANG = C
 # environment
-XAUTHORITY = /run/user/1000/.mutter-Xwaylandauth.IQIIP1
+XAUTHORITY = /run/user/1000/.mutter-Xwaylandauth.5UOGP1
 # default
 .LOADED := 
 # default
 .INCLUDE_DIRS = /usr/local/include /usr/include /usr/include
 # environment
-GNOME_TERMINAL_SERVICE = :1.96
+GNOME_TERMINAL_SERVICE = :1.98
 # makefile
 MAKEFLAGS = pqrR
 # environment
-DBUS_STARTER_ADDRESS = unix:path=/run/user/1000/bus,guid=3ab2fcb20b9c86db8cb3655b62d8970e
+DBUS_STARTER_ADDRESS = unix:path=/run/user/1000/bus,guid=ba4637f51d59fd1c1f2f576562d99b5d
 # makefile
 CURDIR := /home/bear/csapp/0/mycsapp/cachelab-handout
 # environment
@@ -77,19 +113,19 @@ MAKEFILE_LIST := Makefile
 # automatic
 @F = $(notdir $@)
 # environment
-VSCODE_PID = 2105
+VSCODE_PID = 2132
 # environment
 XDG_SESSION_TYPE = wayland
 # automatic
 ?D = $(patsubst %/,%,$(dir $?))
 # environment
-SESSION_MANAGER = local/debian:@/tmp/.ICE-unix/1293,unix/debian:/tmp/.ICE-unix/1293
+SESSION_MANAGER = local/debian:@/tmp/.ICE-unix/1292,unix/debian:/tmp/.ICE-unix/1292
 # automatic
 *F = $(notdir $*)
 # environment
 CHROME_DESKTOP = code-url-handler.desktop
 # environment
-DBUS_SESSION_BUS_ADDRESS = unix:path=/run/user/1000/bus,guid=3ab2fcb20b9c86db8cb3655b62d8970e
+DBUS_SESSION_BUS_ADDRESS = unix:path=/run/user/1000/bus,guid=ba4637f51d59fd1c1f2f576562d99b5d
 # automatic
 <D = $(patsubst %/,%,$(dir $<))
 # environment
@@ -107,7 +143,7 @@ XMODIFIERS = @im=ibus
 # environment
 SHLVL = 1
 # environment
-GNOME_TERMINAL_SCREEN = /org/gnome/Terminal/screen/1c7d38d4_6982_4257_bb3c_3fa7e6a6425c
+GNOME_TERMINAL_SCREEN = /org/gnome/Terminal/screen/cadf01ac_a978_4e71_a0ab_77c2ab798c06
 # environment
 MAKELEVEL := 0
 # default
@@ -203,9 +239,9 @@ GDMSESSION = gnome
 
 # Directories
 
-# . (device 2054, inode 790660): 17 files, no impossibilities.
+# . (device 2054, inode 790660): 20 files, no impossibilities.
 
-# 17 files, no impossibilities in 1 directories.
+# 20 files, no impossibilities in 1 directories.
 
 # Implicit Rules
 
@@ -216,7 +252,7 @@ GDMSESSION = gnome
 # Not a target:
 trans.c:
 #  Implicit rule search has been done.
-#  Last modified 2013-01-22 10:53:18
+#  Last modified 2022-07-21 14:29:43.155637243
 #  File has been updated.
 #  Successfully updated.
 
@@ -254,7 +290,7 @@ test-trans.c:
 # Not a target:
 csim.c:
 #  Implicit rule search has been done.
-#  Last modified 2022-07-20 19:59:13.741284796
+#  Last modified 2022-07-21 03:00:41.587284038
 #  File has been updated.
 #  Successfully updated.
 
@@ -278,7 +314,6 @@ clean:
 
 tracegen: tracegen.c trans.o cachelab.c
 #  Implicit rule search has not been done.
- 
 #  Modification time never checked.
 #  File has not been updated.
 #  recipe to execute (from 'Makefile', line 19):
@@ -314,7 +349,9 @@ trans.o: trans.c
 #  Implicit/static pattern stem: ''
 #  File does not exist.
 #  File has been updated.
+ 
 #  Needs to be updated (-q is set).
+ 
 # automatic
 # @ := trans.o
 # automatic
@@ -344,7 +381,7 @@ trans.o: trans.c
 
 csim: csim.c cachelab.c cachelab.h
 #  Implicit rule search has not been done.
-#  Last modified 2022-07-20 19:59:16.357282885
+#  Last modified 2022-07-21 03:00:43.959292491
 #  File has been updated.
 #  Successfully updated.
 #  recipe to execute (from 'Makefile', line 13):
@@ -358,12 +395,12 @@ csim: csim.c cachelab.c cachelab.h
 
 # No general ('VPATH' variable) search path.
 
-# strcache buffers: 1 (0) / strings = 26 / storage = 234 B / avg = 9 B
-# current buf: size = 8162 B / used = 234 B / count = 26 / avg = 9 B
+# strcache buffers: 1 (0) / strings = 29 / storage = 277 B / avg = 9 B
+# current buf: size = 8162 B / used = 277 B / count = 29 / avg = 9 B
 
-# strcache performance: lookups = 53 / hit rate = 50%
+# strcache performance: lookups = 56 / hit rate = 48%
 # hash-table stats:
-# Load=26/8192=0%, Rehash=0, Collisions=0/53=0%
-# Finished Make data base on Wed Jul 20 20:00:37 2022
+# Load=29/8192=0%, Rehash=0, Collisions=0/56=0%
+# Finished Make data base on Thu Jul 21 14:31:30 2022
 
  
